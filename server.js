@@ -1,26 +1,25 @@
-var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000,
-  mongoose = require('mongoose'),
-  Task = require('./src/api/models/todoListModel'),
-  bodyParser = require('body-parser');
+// Start script is a plain js file due to Azure constraint,
+// azure looks for startup script, before TypeScript gets chance to get compiled to ts
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://boy:test123@127.0.0.1:27017/tutorialtoy');
+// not implented yet in node 6  import * as Server from "./build/service/server";
+let Server = require("./build/services/hapiServer");
+const Config = require('./build/services/config').Config;
+
+console.log(`Running environment ${Config.NODE_ENV}`);
+
+const serverConfigs = {
+    "port": Config.PORT
+};
+
+const server = Server.init(serverConfigs);
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+process.on('uncaughtException', function () {
+  console.log('uncaught exception');
+})
 
 
-var routes = require('./src/api/routes/todoListRoutes');
-routes(app);
-
-app.use(function (req, res) {
-  res.status(404).send({ url: req.originalUrl + ' not found' })
+server.start(() => {
+    console.log('Server running at:', server.info.uri);
 });
 
-app.listen(port);
-
-
-console.log('todo list RESTful API server started on: ' + port);

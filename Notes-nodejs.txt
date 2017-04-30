@@ -13,5 +13,22 @@ npm install mongoose --save
 
 npm install body-parser --save
 
+-------------------------------------------------
+--> Try to use Typescript
+
+revise, package.json
+create/copy, tsconfig.json, npm-shrinkwrap.json
+create/copy, tslint.json
+
+----------------------------------------------
+
+import Task from '../models/taskType'; => can be used with export default const User. 
+import { ITask } from '../models/taskType'; => can be used with export const User
+
+
+
+
+
+
 
 
