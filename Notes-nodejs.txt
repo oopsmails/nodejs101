@@ -1,0 +1,17 @@
+npm init
+
+npm install --save-dev nodemon
+
+npm install express --save
+
+Open the package.json file and add this task to the script
+"start": "nodemon server.js"
+
+npm run start
+
+npm install mongoose --save
+
+npm install body-parser --save
+
+
+
